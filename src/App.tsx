@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React,{useState} from 'react';
 import './App.css';
+import DirectDebit from './components/DirectDebit'
+import PaymentFreq from './components/PaymentFreq'
+import Actions from './components/Actions'
+import styled from 'styled-components'
 
-function App() {
+const App:React.FC=()=> {
+
+  const [amount,setAmount] = useState<number>(356.95);
+  const handleClick=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    setAmount(parseFloat(e.target.value));
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title>Repayments</Title>
+      <Wrapper>
+        <Info>
+          <DirectDebit amount={amount}/>
+          <PaymentFreq />
+        </Info>
+        <Actions handleClick={handleClick}/>
+      </Wrapper>
     </div>
   );
 }
+const Title=styled.h6`
+  font-size:31px;
+  font-weight:normal;
+  margin-bottom:12px;
+  color:#062a6d;
+`
 
+const Wrapper = styled.div`
+  border-top:2px solid #062a6d;
+  display:flex;
+  
+`
+const Info=styled.div`
+  flex:60%;
+  color:#4c4d51;
+`
 export default App;
